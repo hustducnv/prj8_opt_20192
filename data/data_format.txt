@@ -1,0 +1,11 @@
+N M  // N: số môn, M: số phòng
+d[0]  d[1] ... d[N-1]   //số lượng sv đki
+c[0] ..... c[M-1]	// sức chứa
+Q     // số lượng cặp conflict 
+0 3 //conflig, 
+3 5
+1 6
+.... // Q cặp
+
+
+
