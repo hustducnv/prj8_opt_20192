@@ -48,7 +48,7 @@ hàm random
 tham số như sau
 N: số môn
 M: số phòng
-Q: số cặp conflict (môn đánh chỉ số từ 0)
+Q: số cặp conflict (môn đánh chỉ số từ 1)
 min_student, max_student: số sinh viên 1 môn
 min_capacity, max_capacity: sức chứa 1 phòng
 

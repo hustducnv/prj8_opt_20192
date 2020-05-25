@@ -1,3 +1,5 @@
+//mo hinh bang Choco, moi lop thi 1 phong
+
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.Solver;
