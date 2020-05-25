@@ -5,7 +5,7 @@ public class RandomData {
 	public static void main(String[] args) throws IOException {
 		int num;
 		int[][] conflict;
-		int N, M, Q, dem;
+		int N, M, Q, dem, min_student, max_student, min_capacity, max_capacity;
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		Random rd = new Random();
@@ -18,6 +18,18 @@ public class RandomData {
 		System.out.println();
 		System.out.printf("Nhap Q: ");
 		Q = scanner.nextInt();
+		System.out.printf("Nhap min student: ");
+		min_student = scanner.nextInt();
+		System.out.println();
+		System.out.printf("Nhap max student: ");
+		max_student = scanner.nextInt();
+		System.out.println();
+		System.out.printf("Nhap min capacity: ");
+		min_capacity = scanner.nextInt();
+		System.out.println();
+		System.out.printf("Nhap max capacity: ");
+		max_capacity = scanner.nextInt();
+		System.out.println();
 		 FileWriter fw = new FileWriter("..\\data\\"+N +"_"+M+"_"+Q+".dat");
 		dem = Q;
 		fw.write(N + " " + M);
@@ -25,14 +37,14 @@ public class RandomData {
 		//System.out.printf(N + " " + M);
 		//System.out.println();
 		for(int i = 1; i <= N; i++) {
-			num = 50 + rd.nextInt(100);
+			num = min_student + rd.nextInt(max_student - min_student + 1);
 			fw.write(num + " ");
 			//System.out.print(num + " ");
 		}
 		fw.write("\r\n");
 		//System.out.println();
 		for(int i = 1; i <= M; i++) {
-			num = 50 + rd.nextInt(100);
+			num = min_capacity + rd.nextInt(max_capacity - min_capacity + 1);
 			fw.write(num + " ");
 			//System.out.print(num + " ");
 		}
