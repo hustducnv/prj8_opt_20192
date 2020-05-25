@@ -39,20 +39,20 @@ public class MIP_ortools {
             N = scanner.nextInt();
             M = scanner.nextInt();
 
-            d = new int[N];
-            for (int i = 0; i < N; i++) {
+            d = new int[N+1];
+            for (int i = 1; i <= N; i++) {
                 d[i] = scanner.nextInt();
             }
 
-            c = new int[M];
-            for (int i = 0; i < M; i++) {
+            c = new int[M+1];
+            for (int i = 1; i <= M; i++) {
                 c[i] = scanner.nextInt();
             }
 
             int Q = scanner.nextInt();
-            conflict = new int[N][N];
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
+            conflict = new int[N+1][N+1];
+            for (int i = 1; i <= N; i++) {
+                for (int j = 1; j <= N; j++) {
                     conflict[i][j] = 0;
                 }
             }
@@ -75,7 +75,7 @@ public class MIP_ortools {
 
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= M; j++) {
-                if (c[j-1] < d[i-1]) {  //suc chua phong j < so luong sv dki mon i
+                if (c[j] < d[i]) {  //suc chua phong j < so luong sv dki mon i
                     X[i][j] = solver.makeIntVar(0, 0, "X[" + i + ", " + j +" ]");
                 } else  {
                     X[i][j] = solver.makeIntVar(0, 1, "X[" + i + ", " + j +" ]");
@@ -85,7 +85,7 @@ public class MIP_ortools {
 
         for (int i1 = 1; i1 <= N-1; i1++) {
             for (int i2 = i1 + 1; i2 <= N; i2++) {
-                if (conflict[i1-1][i2-1] == 1) {
+                if (conflict[i1][i2] == 1) {
                     //System.out.println(i1 + " - " + i2);
                     Y[i1][i2] = solver.makeIntVar(0, 0, "Y[" + i1 + ", " + i2 +" ]");
                 } else {

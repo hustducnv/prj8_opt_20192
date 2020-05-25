@@ -18,7 +18,7 @@ public class RandomData {
 		System.out.println();
 		System.out.printf("Nhap Q: ");
 		Q = scanner.nextInt();
-		 FileWriter fw = new FileWriter("C:\\Users\\MrAn\\eclipse-workspace\\prj_8_opt\\data\\"+N +"_"+M+"_"+Q+".dat");
+		 FileWriter fw = new FileWriter("..\\data\\"+N +"_"+M+"_"+Q+".dat");
 		dem = Q;
 		fw.write(N + " " + M);
 		fw.write("\r\n");
