@@ -9,14 +9,14 @@ public class RandomData {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		Random rd = new Random();
-		System.out.printf("Nhap N: ");
+		System.out.print("Nhap N (so mon thi): ");
 		N = scanner.nextInt();
 		conflict = new int[N][N];
 		System.out.println();
-		System.out.printf("Nhap M: ");
+		System.out.print("Nhap M (so phong thi): ");
 		M = scanner.nextInt();
 		System.out.println();
-		System.out.printf("Nhap Q: ");
+		System.out.printf("Nhap Q (so luong cap conflict: ");
 		Q = scanner.nextInt();
 		System.out.printf("Nhap min student: ");
 		min_student = scanner.nextInt();
@@ -30,7 +30,7 @@ public class RandomData {
 		System.out.printf("Nhap max capacity: ");
 		max_capacity = scanner.nextInt();
 		System.out.println();
-		 FileWriter fw = new FileWriter("..\\data\\"+N +"_"+M+"_"+Q+".dat");
+		 FileWriter fw = new FileWriter("data\\"+N +"_"+M+"_"+Q+".txt");
 		dem = Q;
 		fw.write(N + " " + M);
 		fw.write("\r\n");
@@ -43,7 +43,8 @@ public class RandomData {
 		}
 		fw.write("\r\n");
 		//System.out.println();
-		for(int i = 1; i <= M; i++) {
+		fw.write(max_capacity + " ");
+		for(int i = 2; i <= M; i++) {
 			num = min_capacity + rd.nextInt(max_capacity - min_capacity + 1);
 			fw.write(num + " ");
 			//System.out.print(num + " ");
@@ -53,18 +54,34 @@ public class RandomData {
 		fw.write(Q + " ");
 		//System.out.println(Q);
 		fw.write("\r\n");
+//		while(dem > 0) {
+//		for (int i = 0; i < N - 1  ; i++) {
+//			for(int j = i + 1; j < N; j++) {
+//				if(conflict[i][j] == 1) continue;
+//				num = rd.nextInt(2);
+//				if(num == 1) dem --;
+//				if(dem < 0) break; 
+//				conflict[i][j] = num;
+//			}
+//			if(dem < 0) break; 
+//		}
+//		}	
+		for (int i = 0; i < N  ; i++) {
+			for(int j = 0; j < N; j++) {
+				conflict[i][j] = 0;
+			}}
+		int first, second;
 		while(dem > 0) {
-		for (int i = 0; i < N - 1  ; i++) {
-			for(int j = i + 1; j < N; j++) {
-				if(conflict[i][j] == 1) continue;
-				num = rd.nextInt(2);
-				if(num == 1) dem --;
-				if(dem < 0) break; 
-				conflict[i][j] = num;
+			first = rd.nextInt(N);
+			second = rd.nextInt(N);
+			while(second == first) second = rd.nextInt(N);
+			if(conflict[first][second] == 1||conflict[second][first] == 1) continue;
+			else {conflict[first][second] = 1;
+			conflict[second][first] = 1;
+			dem--;
 			}
-			if(dem < 0) break; 
-		}
-		}	
+			}
+		
 		dem = 0;
 		for (int i = 0; i < N -1 ; i++) {
 			for(int j = i + 1; j < N; j++) {
@@ -76,12 +93,14 @@ public class RandomData {
 					//System.out.println();
 				}
 				if(dem == Q) break;
-				}
-			if(dem == Q) break;
 			}
-
-        fw.close();
+			if(dem == Q) break;
 		}
 
+        fw.close();
+        System.out.println("file saved to /data/.....");
 	}
+	
+
+}
 

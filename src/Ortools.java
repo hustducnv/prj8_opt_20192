@@ -19,32 +19,32 @@ public class Ortools {
 
     public static void main(String[] args) {
         Ortools app = new Ortools();
-        app.input("data/input1.txt");
+        app.input("data/60_25_33.txt");
         app.solve();
     }
 
     private void input(String file) {
         try {
-            File f = new File(file);
+        	File f = new File(file);
             Scanner scanner = new Scanner(f);
 
             N = scanner.nextInt();
             M = scanner.nextInt();
 
-            d = new int[N];
-            for (int i = 0; i < N; i++) {
+            d = new int[N+1];
+            for (int i = 1; i <= N; i++) {
                 d[i] = scanner.nextInt();
             }
 
-            c = new int[M];
-            for (int i = 0; i < M; i++) {
+            c = new int[M+1];
+            for (int i = 1; i <= M; i++) {
                 c[i] = scanner.nextInt();
             }
 
             int Q = scanner.nextInt();
-            conflict = new int[N][N];
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
+            conflict = new int[N+1][N+1];
+            for (int i = 1; i <= N; i++) {
+                for (int j = 1; j <= N; j++) {
                     conflict[i][j] = 0;
                 }
             }
@@ -60,10 +60,10 @@ public class Ortools {
 
     public void solve() {
         CpModel model = new CpModel();
-        IntVar[] X = new IntVar[N]; //kip thi cua mon i
-        IntVar[] Y = new IntVar[N]; //phong thi cua mon i
+        IntVar[] X = new IntVar[N+1]; //kip thi cua mon i
+        IntVar[] Y = new IntVar[N+1]; //phong thi cua mon i
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i <= N; i++) {
             X[i] = model.newIntVar(1, N, "X" + i);
             Y[i] = model.newIntVar(1, M, "Y" + i);
         }
@@ -72,8 +72,8 @@ public class Ortools {
 
         //constrains
         //1. not conflict (i, j) conflict => X[i] != X[j]
-        for (int i = 0; i < N-1; i++) {
-            for (int j = i+1; j < N; j++) {
+        for (int i = 1; i <= N-1; i++) {
+            for (int j = i+1; j <= N; j++) {
                 if (conflict[i][j] == 1) {
                     model.addDifferent(X[i], X[j]);
                 }
@@ -81,18 +81,18 @@ public class Ortools {
         }
 
         //2. suc chua < so sinh vien dang ki => khong chon phong nay
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= M; j++) {
                 if (c[j] < d[i]) {
-                    model.addDifferent(Y[i], j+1);
+                    model.addDifferent(Y[i], j);
                 }
             }
         }
 
         //3. cung kip thi khac phong
         // if X[i] = X[j] => Y[i] != Y[j]
-        for (int i = 0; i < N-1; i++) {
-            for (int j = i+1; j < N; j++) {
+        for (int i = 1; i <= N-1; i++) {
+            for (int j = i+1; j <= N; j++) {
                 //declare and implement b == (X[i] == X[j])
                 IntVar b = model.newBoolVar("b");
                 model.addEquality(X[i], X[j]).onlyEnforceIf(b);
@@ -105,7 +105,7 @@ public class Ortools {
         }
 
         //4. Z >= X[i]
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i <= N; i++) {
             model.addGreaterOrEqual(Z, X[i]);
         }
 
@@ -119,7 +119,7 @@ public class Ortools {
         System.out.println("solve status: " + status);
         if (status == CpSolverStatus.OPTIMAL) {
             System.out.println("optimal ojective value: " + solver.objectiveValue());
-            for (int i = 0; i < N; i++) {
+            for (int i = 1; i <= N; i++) {
                 System.out.println(i +  ". " +  solver.value(X[i] )+ " " + solver.value(Y[i]));
             }
         }

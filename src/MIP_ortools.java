@@ -27,7 +27,7 @@ public class MIP_ortools {
 
     public static void main(String[] args) {
         MIP_ortools app = new MIP_ortools();
-        app.input("data/input1.txt");
+        app.input("data/15_10_7.txt");
         app.solve();
     }
 
@@ -140,13 +140,16 @@ public class MIP_ortools {
             }
         }
         obj.setMaximization();
-
+        
+        long start = System.currentTimeMillis();
         MPSolver.ResultStatus rs = solver.solve();
+        long time = (System.currentTimeMillis() - start) / 1000;
         if (rs != MPSolver.ResultStatus.OPTIMAL) {
             System.out.println("cannot find optimal solution");
         } else {
+        	System.out.println("time: " + time +" s");
             print_solutions();
-            printS();
+            //printS();
         }
 
 
