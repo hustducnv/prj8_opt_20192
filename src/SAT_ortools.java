@@ -7,7 +7,7 @@ import com.google.ortools.sat.*;
 import java.io.File;
 import java.util.Scanner;
 
-public class Ortools {
+public class SAT_ortools {
     static {
         System.loadLibrary("jniortools");
     }
@@ -18,7 +18,7 @@ public class Ortools {
     int[][] conflict; //conflict[i][j] : mon i va j khong the cung kip
 
     public static void main(String[] args) {
-        Ortools app = new Ortools();
+        SAT_ortools app = new SAT_ortools();
         app.input("data/60_25_33.txt");
         app.solve();
     }
@@ -119,6 +119,7 @@ public class Ortools {
         System.out.println("solve status: " + status);
         if (status == CpSolverStatus.OPTIMAL) {
             System.out.println("optimal ojective value: " + solver.objectiveValue());
+            System.out.println("Mon. kip phong");
             for (int i = 1; i <= N; i++) {
                 System.out.println(i +  ". " +  solver.value(X[i] )+ " " + solver.value(Y[i]));
             }

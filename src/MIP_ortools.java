@@ -27,7 +27,7 @@ public class MIP_ortools {
 
     public static void main(String[] args) {
         MIP_ortools app = new MIP_ortools();
-        app.input("data/15_10_7.txt");
+        app.input("data/10_6_4.txt");
         app.solve();
     }
 
@@ -177,13 +177,16 @@ public class MIP_ortools {
     }
 
     public void print_solutions() {
+    	System.out.println("kip: mon - phong");
         boolean[] mark = new boolean[N+1];
         for (int i = 1; i <= N; i++) mark[i] = false;
 
+        int kip = 0;
         for (int i = 1; i <= N; i++) {
             if (!mark[i]) {
+            	kip++;
                 System.out.println();
-                System.out.print("kip: ");
+                System.out.print("kip " + kip + ": ");
                 mark[i] = true;
                 System.out.print(i + " - ");
                 //in phong thi mon i

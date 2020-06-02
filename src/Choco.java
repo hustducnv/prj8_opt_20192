@@ -25,7 +25,7 @@ public class Choco {
 
     public static void main(String[] args) {
         Choco app = new Choco();
-        app.input("data/40_21_25 .txt");
+        app.input("data/15_10_7.txt");
         app.solve();
     }
 
@@ -134,7 +134,9 @@ public class Choco {
             //stop when find an optimal solution
             System.out.println("---------------------------");
             System.out.println("objective value: " + solver.getBestSolutionValue());
+            System.out.println("Mon. Kip - Phong");
             for (int i = 1; i <= N; i++) {
+            	
                 System.out.println(i +  ". " +  X[i].getValue() + " " + Y[i].getValue());
             }
         }
