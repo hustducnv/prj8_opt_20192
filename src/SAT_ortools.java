@@ -19,7 +19,7 @@ public class SAT_ortools {
 
     public static void main(String[] args) {
         SAT_ortools app = new SAT_ortools();
-        app.input("data/60_25_33.txt");
+        app.input("data/15_10_7.txt");
         app.solve();
     }
 
@@ -52,6 +52,7 @@ public class SAT_ortools {
                 int t1 = scanner.nextInt();
                 int t2 = scanner.nextInt();
                 conflict[t1][t2] = 1;
+                conflict[t2][t1] = 1;
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -111,19 +112,33 @@ public class SAT_ortools {
 
         model.minimize(Z);
         
-        System.out.println(model.modelStats());
+//        System.out.println(model.modelStats());
 
         CpSolver solver = new CpSolver();
+        long start = System.currentTimeMillis();
         
         CpSolverStatus status = solver.solve(model);
         System.out.println("solve status: " + status);
+        
+        long time = (System.currentTimeMillis() - start) / 1000;
+        System.out.println("time: " + time + " s");
+        
         if (status == CpSolverStatus.OPTIMAL) {
-            System.out.println("optimal ojective value: " + solver.objectiveValue());
-            System.out.println("Mon. kip phong");
-            for (int i = 1; i <= N; i++) {
-                System.out.println(i +  ". " +  solver.value(X[i] )+ " " + solver.value(Y[i]));
+        	
+            int ans = (int) solver.objectiveValue();
+            System.out.println("objective value: " + ans);
+            System.out.println("Kip: Mon - Phong");
+            for (int k = 1; k <= ans; k++) {
+            	System.out.print("Kip " + k + ": ");
+            	for (int i = 1; i <= N; i++) {
+            		if (solver.value(X[i]) == k) {
+            			System.out.print(i + " - " + solver.value(Y[i]) + ", ");
+            		}
+            	}
+            	System.out.println();
             }
         }
+        
         
         
         

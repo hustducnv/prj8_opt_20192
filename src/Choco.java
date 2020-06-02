@@ -58,6 +58,7 @@ public class Choco {
                 int t1 = scanner.nextInt();
                 int t2 = scanner.nextInt();
                 conflict[t1][t2] = 1;
+                conflict[t2][t1] = 1;
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -130,17 +131,26 @@ public class Choco {
         Solver solver = model.getSolver();
         
 
+        long start = System.currentTimeMillis();
         while (solver.solve()) {
             //stop when find an optimal solution
             System.out.println("---------------------------");
-            System.out.println("objective value: " + solver.getBestSolutionValue());
-            System.out.println("Mon. Kip - Phong");
-            for (int i = 1; i <= N; i++) {
-            	
-                System.out.println(i +  ". " +  X[i].getValue() + " " + Y[i].getValue());
+            long time = (System.currentTimeMillis() - start) / 1000;
+            System.out.println("time: " + time + " s");
+            int ans = (int) solver.getBestSolutionValue();
+            System.out.println("objective value: " + ans);
+            System.out.println("Kip: Mon - Phong");
+            for (int k = 1; k <= ans; k++) {
+            	System.out.print("Kip " + k + ": ");
+            	for (int i = 1; i <= N; i++) {
+            		if (X[i].getValue() == k) {
+            			System.out.print(i + " - " + Y[i].getValue() + ", ");
+            		}
+            	}
+            	System.out.println();
             }
         }
-        System.out.println("done!");
+        
         
 
 //        Find All Solutions
@@ -155,7 +165,7 @@ public class Choco {
 //            }
 //        }
         
-        solver.printStatistics();
+//        solver.printStatistics();
 
 
     }
